@@ -7,7 +7,7 @@ Vue.use(Router)
 export default new Router({
     routes: [
       { path: '/', component: Home},
-      { path: '/Board:id', name:'Board', component: Board, props: true},
+      { path: '/Board/:id', name:'Board', component: Board, props: true},
     ],
     mode: 'history'
   })

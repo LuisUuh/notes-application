@@ -1,12 +1,33 @@
 <template>
-    <div id="divs">
-        <h3>Mis Paneles</h3>
-        <div class="boards-collection">
-            <span v-if="fetchingData">Cargando...</span>
-            <!-- <div> -->
-                <input type="text" placeholder="Añade un nuevo panel" v-model="BoardName" @keyup.enter="add()">
-            <!-- </div> -->
-            <BoardCard v-for="(Board, index) in boards" :key="index" :name="Board.name" :id="Board.id"></BoardCard>
+    <div>
+        <h3 style="color: #125D98">My Boards</h3>
+        <div v-if="fetchingData" class="global-spinner">
+            <v-progress-circular 
+                indeterminate
+                color="#F5A962"
+                :size="70"
+                :width="7">
+            </v-progress-circular>
+        </div>
+        <div style="min-height:50vh;" v-if="!fetchingData">
+            <v-container>
+                <v-row>
+                    <v-col cols="12" sm="12" md="6" lg="3">
+                        <v-text-field
+                            v-model="BoardName" @keyup.enter="add()"
+                            label="New Board"
+                            placeholder="Add new board"
+                            outlined
+                            dense
+                            color="#125D98"
+                        ></v-text-field>
+                    </v-col>
+                <BoardCard v-for="(Board, index) in boards" :key="index" :name="Board.name" :id="Board.id"></BoardCard>
+                <div v-if="!boards" >
+                    <h3 style="color: #125D98">No boards yet</h3>
+                </div>
+                </v-row>
+            </v-container>
         </div>
     </div>
 </template>
@@ -16,7 +37,7 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
     name: "home-view",
-    components: {BoardCard},
+    components: {BoardCard, },
     data() {
         return{
             BoardName:'',
@@ -31,7 +52,7 @@ export default {
             // this.Boards.push({name: this.BoardName})
             this.addBoard({name: this.BoardName})
             this.BoardName = ''
-        }
+        },
     },
     computed:{
         ...mapState([
@@ -44,35 +65,16 @@ export default {
     }
 }
 </script>
-<style >
+<style>
+.global-spinner{
+    width:100%; 
+    min-height:50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
   h3 {
     text-align: left;
     margin: 1.5rem;
   }
-  .boards-collection {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding-top: 1rem;
-  }
-  input {
-    box-sizing: border-box;
-    background-color: #546E7A;
-    border: 2px solid #546E7A;
-    border-radius: 3px;
-    font-size: 1.1rem;
-    outline: 0;
-    padding: 0.5rem;
-    transition: all 600ms ease;
-    }
-
-    input:focus,
-    input:active {
-      background-color: white;
-      color: #546E7A;
-    }
-    input::placeholder {
-      color: white;
-    }
 </style>

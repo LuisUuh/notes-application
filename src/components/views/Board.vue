@@ -1,7 +1,31 @@
 <template>
     <section>
-        <h3> <span>Mis Paneles</span> -> {{name}} </h3>
-        <input type="text" placeholder="Añade una lista" v-model="ListName" @keyup.enter="add()"/>
+        <h3> <span>My Boards</span> <v-icon>mdi-chevron-double-right</v-icon> {{name}} </h3>
+        <div class="ghost">
+          <v-tooltip left color="#F5A962">
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on">mdi-information</v-icon>
+          </template>
+          <span>* Click to mark as completed</span> <br>
+          <span>* Double click to delete task or list</span>
+        </v-tooltip>
+        </div>
+        
+        <v-row>
+          <v-col cols="12" sm="12" md="6" lg="3">
+                          <v-text-field
+                              type="text" placeholder="Add new list" 
+                              v-model="ListName" @keyup.enter="add()"
+                              label="New list"
+                              outlined
+                              dense
+                              color="#125D98"
+                          ></v-text-field>
+          </v-col>
+        </v-row>
         <div class="container-board">
             <Column v-for="(list, index) in boardList" :key="index" :listId="list.id" :name="list.name"></Column>
         </div>
@@ -52,6 +76,14 @@ export default {
 }
 </script>
 <style scoped>
+.ghost{
+  text-align: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 2em;
+  cursor: help;
+}
   h3 {
     color: #37474f;
     text-align: left;
@@ -60,37 +92,12 @@ export default {
     h3 span {
       color: #546e7a;
     }
-  section {
-    text-align: left;
-  }
   .container-board {
     box-sizing: border-box;
-    align-items: flex-start;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    align-items: flex-start;
     justify-content: flex-start;
-  }
-  input {
-    background-color: #607d8b;
-    border: 0;
-    border-radius: 3px;
-    box-shadow: 0 0 0 0.5px rgba(49,49,93,.03),
-      0 2px 5px 0 rgba(49,49,93,.1),
-      0 1px 2px 0 rgba(0,0,0,.08);
-    color: #607d8b;
-    font-size: 1.2rem;
-    margin: 0 1rem;
-    outline: 0;
-    padding: 1rem;
-    transition: all 600ms ease;
-  }
-    input:active,
-    input:focus {
-      background-color: #fafafa;
-    }
-    input::placeholder {
-      color: #fafafa;
-    
   }
 </style>

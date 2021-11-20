@@ -57,5 +57,11 @@ export default {
   markAsCompleted ({ commit }, { task }) {
     API.completedTask(task.id)
       .then(() => commit(types.MARK_AS_COMPLETED, { task }))
-  }
+  },
+
+  // Delete a list from a board
+  deleteList ({ commit }, { listId }) {
+    API.deleteList(listId)
+      .then(() => commit(types.DELETE_LIST, { listId }))
+  },
 }

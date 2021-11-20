@@ -45,5 +45,8 @@ export default {
         return query.once('value')
           .then(snap => snap.val())
           .then(data => query.set(!data))
-      }
+    },
+    deleteList(listId){
+        return listsRef.child(listId).remove()
+    },
 }

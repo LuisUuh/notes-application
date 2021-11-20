@@ -74,9 +74,14 @@ export default {
     state.tasks = Object.values(state.tasks)
       .filter(task => task.id !== taskId)
   },
-
+  
   // Check a task as completed
   [types.MARK_AS_COMPLETED] (state, { task }) {
     task.completed = !task.completed
+  },
+  // Delete a list from a board
+  [types.DELETE_LIST] (state, { listId }) {
+    state.lists = Object.values(state.lists)
+    .filter(list=> list.id !== listId)
   }
 }
