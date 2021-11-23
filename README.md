@@ -18,9 +18,8 @@ npm run dev
 ```
 
 ### Links
-```
+
 - Live Site URL: [Demo](https://notes-application-7ypcocltw-uuhl.vercel.app/)
-```
 
 ### Compiles and minifies for production
 ```
